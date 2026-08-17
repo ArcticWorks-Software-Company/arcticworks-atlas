@@ -1,0 +1,3 @@
+singleton AWTheme 1.0 AWTheme.qml
+singleton AWTooltip 1.0 primitives/AWTooltip.qml
+singleton AWToaster 1.0 overlays/AWToaster.qml
