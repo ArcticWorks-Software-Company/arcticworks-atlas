@@ -1,16 +1,7 @@
 project(desktop)
 
 QT6_ADD_RESOURCES(RES_SOURCES res/resources.qrc)
-
-file(GLOB_RECURSE QML_RESOURCE_FILES
-  ${CMAKE_CURRENT_SOURCE_DIR}/qml/*.qml
-  ${CMAKE_CURRENT_SOURCE_DIR}/qml/*.js
-  ${CMAKE_CURRENT_SOURCE_DIR}/qml/qmldir
-)
-qt_add_resources(desktop "qml_res" PREFIX "/qt/qml"
-  BASE ${CMAKE_CURRENT_SOURCE_DIR}/qml
-  FILES ${QML_RESOURCE_FILES}
-)
+QT6_ADD_RESOURCES(QML_RES_SOURCES qml/qml_resources.qrc)
 
 set(SRC
   about.cpp
@@ -77,7 +68,7 @@ set(SRC
   update_dialog.hpp
 )
 
-omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${RES_SOURCES} ${SRC})
+omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${RES_SOURCES} ${QML_RES_SOURCES} ${SRC})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC ON)
 

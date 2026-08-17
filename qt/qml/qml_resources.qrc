@@ -1,0 +1,37 @@
+<RCC>
+    <qresource prefix="/qt/qml">
+        <file>app/main.qml</file>
+        <file>aw/AWIcon.qml</file>
+        <file>aw/AWTheme.qml</file>
+        <file>aw/qmldir</file>
+        <file>aw/icons/IconSet.js</file>
+        <file>aw/overlays/AWDialog.qml</file>
+        <file>aw/overlays/AWMenu.qml</file>
+        <file>aw/overlays/AWMenuItem.qml</file>
+        <file>aw/overlays/AWMenuSeparator.qml</file>
+        <file>aw/overlays/AWShadow.qml</file>
+        <file>aw/overlays/AWToast.qml</file>
+        <file>aw/overlays/AWToaster.qml</file>
+        <file>aw/primitives/AWBadge.qml</file>
+        <file>aw/primitives/AWButton.qml</file>
+        <file>aw/primitives/AWCheckbox.qml</file>
+        <file>aw/primitives/AWIconButton.qml</file>
+        <file>aw/primitives/AWInput.qml</file>
+        <file>aw/primitives/AWKbd.qml</file>
+        <file>aw/primitives/AWProgress.qml</file>
+        <file>aw/primitives/AWRadio.qml</file>
+        <file>aw/primitives/AWSearchField.qml</file>
+        <file>aw/primitives/AWSelect.qml</file>
+        <file>aw/primitives/AWSpinner.qml</file>
+        <file>aw/primitives/AWSwitch.qml</file>
+        <file>aw/primitives/AWTooltip.qml</file>
+        <file>aw/structure/AWCard.qml</file>
+        <file>aw/structure/AWList.qml</file>
+        <file>aw/structure/AWListItem.qml</file>
+        <file>aw/structure/AWNavItem.qml</file>
+        <file>aw/structure/AWNavSection.qml</file>
+        <file>aw/structure/AWSidebar.qml</file>
+        <file>aw/structure/AWTabs.qml</file>
+        <file>aw/themes/generated/AWThemeData.qml</file>
+    </qresource>
+</RCC>
