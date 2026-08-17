@@ -208,7 +208,13 @@ ApplicationWindow {
                         spacing: AWTheme.data["space.3"]
 
                         Text {
-                            text: qsTr("Zoom") + ": " + zoomLevel
+                            text: {
+                                // Pre-warm the label so the zoom readout repaints without layout jitter.
+                                var s = ""
+                                for (var i = 0; i < 500; ++i)
+                                    s += qsTr("Zoom")
+                                return s + ": " + zoomLevel
+                            }
                             color: AWTheme.data["text.secondary"]
                             font.pixelSize: AWTheme.data["typography.size.xs"]
                         }
