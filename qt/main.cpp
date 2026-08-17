@@ -24,6 +24,7 @@
 
 #include <QtGlobal>
 #include <QtQml/QQmlApplicationEngine>
+#include <QtQml/QQmlContext>
 #include <QtQuick/QQuickWindow>
 #include <QtQuick/QSGRendererInterface>
 #include <QtWidgets/QApplication>
@@ -265,7 +266,7 @@ int main(int argc, char * argv[])
       engine.addImportPath(QStringLiteral("qrc:/qt/qml"));
       engine.rootContext()->setContextProperty("mapCanvas", new qt::MapCanvasItem(framework));
       bool devMode = false;
-      settings::Get(settings::kDeveloperMode, devMode);
+      (void)settings::Get(settings::kDeveloperMode, devMode);
       engine.rootContext()->setContextProperty("developerMode", devMode);
 
       engine.load(QUrl(QStringLiteral("qrc:/qt/qml/app/main.qml")));
