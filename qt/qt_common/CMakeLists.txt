@@ -5,6 +5,8 @@ QT6_ADD_RESOURCES(RESOURCES res/resources_common.qrc)
 set_property(SOURCE qrc_resources_common.cpp PROPERTY SKIP_AUTOGEN ON)
 
 set(SRC
+  arcticworks_style.cpp
+  arcticworks_style.hpp
   helpers.cpp
   helpers.hpp
   map_widget.cpp

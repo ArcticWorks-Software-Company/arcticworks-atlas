@@ -1,5 +1,7 @@
 #include "qt/preferences_dialog.hpp"
 
+#include "qt/qt_common/arcticworks_style.hpp"
+
 #include "indexer/map_style.hpp"
 #include "map/framework.hpp"
 
@@ -12,6 +14,7 @@
 
 #include <QLocale>
 #include <QtGui/QIcon>
+#include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
@@ -204,7 +207,10 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     connect(nightModeGroup, buttonClicked, [&framework](int i)
     {
       auto const currStyle = framework.GetMapStyle();
-      framework.SetMapStyle((i == 0) ? GetLightMapStyleVariant(currStyle) : GetDarkMapStyleVariant(currStyle));
+      auto const newStyle = (i == 0) ? GetLightMapStyleVariant(currStyle) : GetDarkMapStyleVariant(currStyle);
+      framework.SetMapStyle(newStyle);
+      if (auto * app = qobject_cast<QApplication *>(QApplication::instance()))
+        arcticworks_style::Apply(*app, MapStyleIsDark(newStyle));
     });
   }
 

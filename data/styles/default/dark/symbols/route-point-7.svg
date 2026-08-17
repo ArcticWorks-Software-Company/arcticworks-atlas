@@ -6,6 +6,6 @@
   </filter>
  </defs>
  <circle cx="14" cy="14" r="11" filter="url(#filter1)" opacity=".35"/>
- <circle cx="14" cy="13" r="11" fill="#006c35" stroke="#fff" stroke-width="2"/>
+ <circle cx="14" cy="13" r="11" fill="#4e4e56" stroke="#fff" stroke-width="2"/>
  <path d="m16.938 9.418-3.2988 7.582h-1.7871l3.3047-7.1602h-4.2422v-1.3711h6.0234z" fill="#fff" aria-label="7" data-font-family="Roboto" data-font-size="12px"/>
 </svg>

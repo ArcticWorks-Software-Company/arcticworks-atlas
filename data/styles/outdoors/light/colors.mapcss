@@ -1,22 +1,25 @@
 /*
  * Keep here changes of the base map style files only
  * (see style.mapcss for exact processing order).
+ *
+ * ArcticWorks Design palette (light, derived per @arcticworks/design methodology).
+ * See docs/ARCTICWORKS_THEME.md.
  */
 
-@cycleway: #534DEB; /* slightly darker than in main */
+@cycleway: #2B6FD9; /* slightly darker than in main */
 
 @pedestrian: #FFFFFF; /* slightly lighter than in main */
 @footway: #FFFFFF; /* slightly lighter than in main */
 
-@construction: #ABAB9A;
+@construction: #A8A8B0;
 
-@railway: #818071;
-@railway_dark: #767566;
-@railway_dash: #F5F5F5;
+@railway: #9898A1;
+@railway_dark: #8B8B93;
+@railway_dash: #F2F2F4;
 
-@motorway1_border: #673A00;
-@trunk1_border: #805419;
-@primary1_border: #806021;
-@primary2_border: #75581F;
-@secondary0_border: #80682D;
-@secondary1_border: #755F2A;
+@motorway1_border: #2C2C33;
+@trunk1_border: #3A3A42;
+@primary1_border: #4E4E56;
+@primary2_border: #4E4E56;
+@secondary0_border: #5A5A62;
+@secondary1_border: #5A5A62;

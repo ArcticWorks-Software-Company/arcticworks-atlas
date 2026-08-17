@@ -1,5 +1,8 @@
 /* ~~~~ CONTENT OF COLORS-DARK ~~~~~
 
+ArcticWorks Design palette (dark, official @arcticworks/design tokens).
+See docs/ARCTICWORKS_THEME.md.
+
 1.BASEMAP
 2.BOUNDARY
 3.NATURAL
@@ -26,166 +29,166 @@
 
 /* 1.BASEMAP */
 
-@background: #050505;
+@background: #0B0B0D;
 
 /* 2.BOUNDARY */
 
-@border_country: #4C4C4C;
-@border_region: #5C5C5C;
+@border_country: #4E4E56;
+@border_region: #3A3A42;
 
 /* 3.NATURAL */
 /* 3.1 Main natural */
 
-@glacier: #111111;
-@water: #002222;
-@water_bad: #00261e;
-@river: #062026;
-@wetland: #001919;
-@beach: #28281A;
-@barerock: #302A2A;
-@desert: #191007;
+@glacier: #1D1D22;
+@water: #245BC2;
+@water_bad: #2A55A8;
+@river: #2B6FD9;
+@wetland: #20313F;
+@beach: #26241E;
+@barerock: #232328;
+@desert: #26241F;
 
 /*3.2 Vegetation*/
 
-@forest: #090F0A;
-@green0: #090F0A;
-@green1: #090F0A;
-@green2: #090F0A;
-@green3: #090F0A;
-@green4: #090F0A;
-@green5: #090F0A;
-@green6: #2F4000;
+@forest: #101413;
+@green0: #101413;
+@green1: #101413;
+@green2: #101413;
+@green3: #101413;
+@green4: #101413;
+@green5: #101413;
+@green6: #243A24;
 
 /* 4.LANDUSE */
 /*4.1 Main landuse*/
 
 /*
-@university: #261F13;
-@hospital: #261916;
+@university: #1B1B22;
+@hospital: #231818;
 */
-@general_area: #000000;
-@industrial: #0D0A0D;
-@construction_area: #0D0A0D;
-@sport: #070F0A;
-@military: #B71C1C;
-@prison: #7f7f7f;
-@parking: #191509;
-@parking_l: #1F190A;
-@farmland: #151500;
-@farmyard: #212106;
+@general_area: #111114;
+@industrial: #131316;
+@construction_area: #131316;
+@sport: #101413;
+@military: #4A2222;
+@prison: #3A3A42;
+@parking: #17171B;
+@parking_l: #1B1B20;
+@farmland: #1F1E15;
+@farmyard: #211F17;
 
 /*4.2 Aerodrome*/
 
-@aerodrome0: #1B1821;
-@aerodrome1: #1B1821;
-@aerodrome2: #1B1821;
-@aerodrome3: #1B1821;
-@aerodrome4: #1B1821;
-@aerodrome5: #1B1821;
+@aerodrome0: #1F2832;
+@aerodrome1: #1F2832;
+@aerodrome2: #1F2832;
+@aerodrome3: #1F2832;
+@aerodrome4: #1F2832;
+@aerodrome5: #1F2832;
 
 /* 4.3 Barriers */
-@fence: #444444;
-@hedge: #143C14;
-@cliff: #7D4F23;
+@fence: #4E4E56;
+@hedge: #18251A;
+@cliff: #3A3A42;
 
 /* 4.4 Buildings */
 
-@building0: #191919;
-@building1: #1D1D1D;
-@building_border0: #1C1C1C;
+@building0: #2C2C33;
+@building1: #27272E;
+@building_border0: #1D1D22;
 
 /* 5.ROADS */
 /* 5.1 All roads */
 
-@trunk0: #4C2A19;
-@trunk1: #4C2A17;
-@primary0:  #5E351D;
-@primary1: #5E351D;
-@primary2: #5E351D;
-@secondary0: #3B3939;
-@residential: #363434;
-@unclassified: #333131;
-@pedestrian: #4D4744;
-@footway: #2B2827;
-@cycleway: #6E3D47;
-@construction: #332F2D;
-@track: #5F532D;
-@path: #944A12;
-@bridleway: #2B2827;
+@trunk0: #6F6F78;
+@trunk1: #6F6F78;
+@primary0: #5A5A62;
+@primary1: #5A5A62;
+@primary2: #5A5A62;
+@secondary0: #3A3A42;
+@residential: #242427;
+@unclassified: #222226;
+@pedestrian: #242427;
+@footway: #1D1D22;
+@cycleway: #3D82F6;
+@construction: #2A2A30;
+@track: #3A3A42;
+@path: #2C2C33;
+@bridleway: #2C2C33;
 
 /* 5.2 Bridges */
 
-@bridge_background: #121212;
-@bridge_casing: #0D0D0D;
-@casing_road:  #0D0D0D;
+@bridge_background: #17171B;
+@bridge_casing: #111114;
+@casing_road: #0B0B0D;
 
 /* 5.3 Tunnels */
 
-@trunk_tunnel: #381F14;
-@trunk_tunnel_casing: #000000;
-@primary_tunnel: #4C2A1B;
-@primary_tunnel_casing: #000000;
-@secondary_tunnel: #2B2827;
-@secondary_tunnel_casing:  #000000;
-@tertiary_tunnel: #2B2827;
-@tertiary_tunnel_casing:  #000000;
-@unclassified_tunnel: #2B2827;
-@unclassified_tunnel_casing: #000000;
+@trunk_tunnel: #3A3A42;
+@trunk_tunnel_casing: #17171B;
+@primary_tunnel: #2C2C33;
+@primary_tunnel_casing: #17171B;
+@secondary_tunnel: #242427;
+@secondary_tunnel_casing: #17171B;
+@tertiary_tunnel: #1D1D22;
+@tertiary_tunnel_casing: #17171B;
+@unclassified_tunnel: #1D1D22;
+@unclassified_tunnel_casing: #17171B;
 
 /* 5.5 Transport */
 
-@railway_light: #2C2630;
-@railway: #3A2F40;
-@railway_tourism: #3D3128;
-@railway_tunnel: #222222;
-@railway_dash: #050505;
-/* @aerialway: #4E4E3D; */
-@tram: #5C5C51;
-/* @ferry: #2A4541; */
+@railway_light: #3A3A42;
+@railway: #2C2C33;
+@railway_tourism: #34383F;
+@railway_tunnel: #242427;
+@railway_dash: #0B0B0D;
+/* @aerialway: #5A5A62; */
+@tram: #3A3A42;
+/* @ferry: #3D82F6; */
 
 /* 6.LABELS COLORS */
 /* 6.1 Main labels */
 
-@label_dark: #888888;
-@label_medium: #8C8C8C;
-@label_light: #666666;
-@label_halo_medium: #111100;
-@label_halo_light: #060600;
+@label_dark: #E8E8EB;
+@label_medium: #D9D9DD;
+@label_light: #C4C4CA;
+@label_halo_medium: #17171B;
+@label_halo_light: #0B0B0D;
 
 /* 6.2 Natural labels */
 
-@water_label: #004A59;
-@water_light_label: #004A59;
-@park_label: #2B4918;
-@halo_park_label: #111;
+@water_label: #5C9CFF;
+@water_light_label: #8FBCFF;
+@park_label: #9CC6A0;
+@halo_park_label: #17171B;
 
 /* 6.3 Place labels */
 
-@city_label: #999999;
-@country_label: #444444;
-@state_label: #444444;
-@district_label: #555555;
-@housenumber: #6C6C6C;
-@building_label: #737373;
-@poi_label: #666666;
-@subway_label: #555555;
-@shop_label: #6B425C;
-@industry_label: #574469;
-@food_label: #8C491C;
-@entertainment_label: #8C311B;
-@culture_label: #6E4426;
-@hotel_label: #614A43;
-@sport_label: #2B5C4B;
-@nature_label: #3C612E;
-@water_label: #0A6074;
-@neutral_label: #51585E;
-@healthcare_label: #983E44;
-@public_transport_label: #2F6499;
-@emergency_label: #247F52;
+@city_label: #A8A8B0;
+@country_label: #6F6F78;
+@state_label: #6F6F78;
+@district_label: #8B8B93;
+@housenumber: #A8A8B0;
+@building_label: #8B8B93;
+@poi_label: #D9D9DD;
+@subway_label: #E8E8EB;
+@shop_label: #C28AB2;
+@industry_label: #A8A8B0;
+@food_label: #D99A6B;
+@entertainment_label: #E08A78;
+@culture_label: #B28A6A;
+@hotel_label: #A8A8B0;
+@sport_label: #7BC28A;
+@nature_label: #7BB386;
+@water_label: #5C9CFF;
+@neutral_label: #8B8B93;
+@healthcare_label: #E08A8A;
+@public_transport_label: #5C9CFF;
+@emergency_label: #3FB950;
 
 /* 6.4 Road labels */
 
-@shield_text: #303030;
-@shield_text_halo: #000000;
-@shield: #999999;
-@shield_outline: #303030;
+@shield_text: #E8E8EB;
+@shield_text_halo: #17171B;
+@shield: #3A3A42;
+@shield_outline: #E8E8EB;

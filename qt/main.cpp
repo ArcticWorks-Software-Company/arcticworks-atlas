@@ -3,7 +3,10 @@
 #include "qt/mainwindow.hpp"
 #include "qt/screenshoter.hpp"
 
+#include "qt/qt_common/arcticworks_style.hpp"
 #include "qt/qt_common/helpers.hpp"
+
+#include "indexer/map_style.hpp"
 
 #include "map/framework.hpp"
 
@@ -239,6 +242,7 @@ int main(int argc, char * argv[])
 #endif  // BUILD_DESIGNER
 
     Framework framework(frameworkParams);
+    arcticworks_style::Apply(app, MapStyleIsDark(framework.GetMapStyle()));
     qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry()
 #ifdef BUILD_DESIGNER
                                                                  ,
