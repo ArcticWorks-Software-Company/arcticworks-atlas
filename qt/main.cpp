@@ -259,8 +259,6 @@ int main(int argc, char * argv[])
     {
       // QFBO requires an OpenGL scene graph backend.
       QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
-      QQuickWindow::setPersistentOpenGLContext(true);
-      QQuickWindow::setPersistentSceneGraph(true);
 
       QQmlApplicationEngine engine;
       engine.addImportPath(QStringLiteral("qrc:/qt/qml"));
@@ -270,6 +268,13 @@ int main(int argc, char * argv[])
       engine.rootContext()->setContextProperty("developerMode", devMode);
 
       engine.load(QUrl(QStringLiteral("qrc:/qt/qml/app/main.qml")));
+      // Keep the GL context and scene graph alive so the drape engine can share
+      // the window's context (Qt 6.4 has no global setter; instance call only).
+      if (auto * qmlWindow = qobject_cast<QQuickWindow *>(engine.rootObjects().value(0)))
+      {
+        qmlWindow->setPersistentGraphics(true);
+        qmlWindow->setPersistentSceneGraph(true);
+      }
       returnCode = QApplication::exec();
     }
     else
