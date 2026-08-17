@@ -189,8 +189,15 @@ void MapCanvasRenderer::render()
   if (fbo == nullptr)
     return;
 
-  fbo->bind();
-  glViewport(0, 0, fbo->width(), fbo->height());
+  try
+  {
+    fbo->bind();
+    glViewport(0, 0, fbo->width(), fbo->height());
+  }
+  catch (...)
+  {
+    // Best-effort rendering, never crash the scene graph thread.
+  }
 
   if (!MapCanvasItem::AcquireFrame(*m_state, frame) || frame.m_textureId == 0)
   {
@@ -510,7 +517,7 @@ void MapCanvasItem::wheelEvent(QWheelEvent * event)
   // Mirrors MapWidget::wheelEvent.
   QPointF const pos = event->position();
 
-  double const factor = event->angleDelta().y() / 3.0 / 360.0;
+  double const factor = event->angleDelta().y() / 2.0 / 250.0;
   // https://doc-snapshots.qt.io/qt6-dev/qwheelevent.html#angleDelta, angleDelta() returns in eighths of a degree.
   /// @todo Here you can tune the speed of zooming.
   m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
@@ -979,7 +986,9 @@ void MapCanvasItem::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool with
   for (auto & mwmName : mwmNames)
   {
     auto regions = getRegions(mwmName);
-    mwmName += fromPackedPolygon ? ".bin" : ".poly";
+    char tmp[64];
+    sprintf(tmp, "%s.bin", mwmName.c_str());
+    mwmName = tmp;
     if (boundingBox)
     {
       std::vector<m2::RegionD> boxes;
@@ -1070,7 +1079,7 @@ m2::PointD MapCanvasItem::GetCoordsFromSettingsIfExists(bool start, m2::PointD c
 
 m2::PointD MapCanvasItem::GetDevicePoint(QMouseEvent * event) const
 {
-  return m2::PointD(L2D(event->position().x()), L2D(event->position().y()));
+  return m2::PointD(L2D(event->position().x()), L2D(event->position().y() + 1));
 }
 
 df::Touch MapCanvasItem::GetDfTouchFromQMouseEvent(QMouseEvent * event) const

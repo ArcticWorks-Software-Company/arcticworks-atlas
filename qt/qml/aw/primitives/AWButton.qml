@@ -12,11 +12,11 @@ Button {
     property string iconName: ""
     property bool loading: false
 
-    implicitHeight: AWTheme.data["button.height"]
+    implicitHeight: 32
     implicitWidth: Math.max(content.implicitWidth, implicitHeight)
 
     hoverEnabled: true
-    opacity: enabled ? 1.0 : AWTheme.data["button.disabled-opacity"]
+    opacity: enabled ? 1.0 : 0.5
 
     contentItem: Item {
         id: content
@@ -27,12 +27,12 @@ Button {
         Row {
             id: row
             anchors.centerIn: parent
-            spacing: AWTheme.data["space.1"]
+            spacing: 4
 
             AWIcon {
                 visible: iconName !== "" && !root.loading
                 name: iconName
-                size: AWTheme.data["icon.size.default"]
+                size: 18
                 tint: textColor()
                 anchors.verticalCenter: parent.verticalCenter
             }
@@ -46,72 +46,58 @@ Button {
                 visible: text !== ""
                 text: root.text
                 color: textColor()
-                font.pixelSize: AWTheme.data["button.font-size"]
-                font.weight: AWTheme.data["button.font-weight"]
+                font.pixelSize: 13
+                font.weight: 500
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
 
         function textColor() {
             if (!root.enabled)
-                return AWTheme.data["text.disabled"]
+                return "#A8A8B0"
             switch (root.variant) {
             case AWButton.Variant.Primary:
-                return AWTheme.data["button.primary.text"]
+                return "#FFFFFF"
             case AWButton.Variant.Danger:
-                return AWTheme.data["button.danger.text"]
+                return "#F04A4A"
             default:
-                return AWTheme.data["button.secondary.text"]
+                return "#F2F2F4"
             }
         }
     }
 
-    background: Item {
-        // 2px offset focus ring, shown only on keyboard focus.
-        Rectangle {
-            anchors.fill: parent
-            anchors.margins: -2
-            radius: AWTheme.data["button.radius"] + 2
-            color: "transparent"
-            border.width: 2
-            border.color: AWTheme.data["button.focus-ring"]
-            visible: root.visualFocus
-        }
+    background: Rectangle {
+        id: bg
+        anchors.fill: parent
+        radius: 8
+        color: bgColor()
+        border.width: root.variant === AWButton.Variant.Secondary ? 1 : 0
+        border.color: borderColor()
 
-        Rectangle {
-            id: bg
-            anchors.fill: parent
-            radius: AWTheme.data["button.radius"]
-            color: bgColor()
-            border.width: root.variant === AWButton.Variant.Secondary ? 1 : 0
-            border.color: borderColor()
-
-            function bgColor() {
-                if (!root.enabled)
-                    return AWTheme.data["button.secondary.background"]
-                switch (root.variant) {
-                case AWButton.Variant.Primary:
-                    if (root.down) return AWTheme.data["button.primary.active-background"]
-                    if (root.hovered) return AWTheme.data["button.primary.hover-background"]
-                    return AWTheme.data["button.primary.background"]
-                case AWButton.Variant.Danger:
-                    if (root.hovered || root.down) return AWTheme.data["button.danger.hover-background"]
-                    return "transparent"
-                default:
-                    if (root.hovered || root.down) return AWTheme.data["button.secondary.hover-background"]
-                    return AWTheme.data["button.secondary.background"]
-                }
-            }
-
-            function borderColor() {
-                if (root.variant === AWButton.Variant.Secondary && root.enabled)
-                    return root.hovered ? AWTheme.data["button.secondary.border-hover"]
-                                       : AWTheme.data["button.secondary.border"]
+        function bgColor() {
+            if (!root.enabled)
+                return "#17171B"
+            switch (root.variant) {
+            case AWButton.Variant.Primary:
+                if (root.down) return "#245BC2"
+                if (root.hovered) return "#5C9CFF"
+                return "#2B6FD9"
+            case AWButton.Variant.Danger:
+                if (root.hovered || root.down) return "rgba(240,74,74,0.10)"
                 return "transparent"
+            default:
+                if (root.hovered || root.down) return "rgba(255,255,255,0.04)"
+                return "#17171B"
             }
-
-            Behavior on color { ColorAnimation { duration: AWTheme.data["button.transition-duration"]; easing.type: Easing.OutCubic } }
-            Behavior on border.color { ColorAnimation { duration: AWTheme.data["button.transition-duration"]; easing.type: Easing.OutCubic } }
         }
+
+        function borderColor() {
+            if (root.variant === AWButton.Variant.Secondary && root.enabled)
+                return root.hovered ? "#3A3A42" : "#2C2C33"
+            return "transparent"
+        }
+
+        Behavior on color { ColorAnimation { duration: 120; easing.type: Easing.OutCubic } }
+        Behavior on border.color { ColorAnimation { duration: 120; easing.type: Easing.OutCubic } }
     }
 }
