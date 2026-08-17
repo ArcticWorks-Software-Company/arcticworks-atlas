@@ -136,6 +136,8 @@ private:
   {
     std::mutex m_mutex;
     drape_ptr<common::QtOGLContextFactory> m_contextFactory;
+    // Last frame timestamp, written by the render thread, read by the GUI thread.
+    double m_lastFrameMs = 0.0;
   };
 
   struct MapFrame

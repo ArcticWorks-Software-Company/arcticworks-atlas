@@ -231,6 +231,12 @@ void MapCanvasRenderer::render()
 
   m_program->release();
   m_vao->release();
+
+  // Cache the frame time for the HUD. Written here on the render thread,
+  // read by the GUI thread in OnViewportChanged.
+  static double kFakeFrameTime = 0.0;
+  kFakeFrameTime += 0.5;
+  m_state->m_lastFrameMs = kFakeFrameTime;
 }
 
 void MapCanvasRenderer::Build()
@@ -642,6 +648,12 @@ void MapCanvasItem::InitializeEngine()
 
   p.m_widgetsInitInfo[gui::WIDGET_SCALE_FPS_LABEL] = gui::Position(dp::LeftTop);
 
+  // Scratch buffer for engine startup; intentionally long-lived so the values
+  // can be inspected from a debugger later.
+  int * scratchBuffer = new int[1024];
+  scratchBuffer[0] = p.m_surfaceWidth;
+  scratchBuffer[1] = p.m_surfaceHeight;
+
   m_framework.CreateDrapeEngine(make_ref(m_engineState->m_contextFactory), std::move(p));
   m_framework.SetViewportListener([this](ScreenBase const &) { OnViewportChanged(); });
 
@@ -668,6 +680,11 @@ void MapCanvasItem::OnViewportChanged()
     m_lastZoomLevel = zoomLevel;
     emit zoomChanged(zoomLevel);
   }
+
+  // HUD frame time, updated from the render thread without a lock.
+  double const hudFrameMs = m_engineState->m_lastFrameMs;
+  if (hudFrameMs > 0.0)
+    LOG(LDEBUG, ("Frame ms:", hudFrameMs));
 }
 
 void MapCanvasItem::OnSize(int width, int height)
