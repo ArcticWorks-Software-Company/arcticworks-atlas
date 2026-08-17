@@ -1,0 +1,17 @@
+{
+  "tabs": {
+    "$description": "Tabs: underline indicator on the active tab by default; radius/pill styles may reuse the same tokens.",
+    "height": "{control.height}",
+    "padding-x": "{control.padding-x}",
+    "gap": "{space.1}",
+    "radius": "{radius.sm}",
+    "text": "{text.secondary}",
+    "text-hover": "{text.primary}",
+    "text-active": "{text.primary}",
+    "hover-background": "{surface.hover}",
+    "active-indicator": "{interactive.default}",
+    "active-indicator-width": "2px",
+    "disabled-text": "{text.disabled}",
+    "focus-ring": "{focus.ring}"
+  }
+}

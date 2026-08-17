@@ -1,0 +1,34 @@
+{
+  "button": {
+    "$description": "Three variants only: primary, secondary, danger. Every state is tokenized — products must not invent states.",
+    "height": "{control.height}",
+    "padding-x": "{control.padding-x}",
+    "radius": "{radius.md}",
+    "font-size": "{typography.size.sm}",
+    "font-weight": "{typography.weight.medium}",
+    "focus-ring": "{focus.ring}",
+    "disabled-opacity": "{opacity.disabled}",
+    "transition-duration": "{motion.fast}",
+    "transition-easing": "{motion.easing-standard}",
+    "primary": {
+      "$description": "The single blue action per view.",
+      "background": "{interactive.primary}",
+      "hover-background": "{interactive.hover}",
+      "active-background": "{interactive.active}",
+      "text": "{text.on-accent}"
+    },
+    "secondary": {
+      "background": "{surface.2}",
+      "hover-background": "{surface.hover}",
+      "border": "{border.default}",
+      "border-hover": "{border.strong}",
+      "text": "{text.primary}"
+    },
+    "danger": {
+      "$description": "Destructive actions. Red text, subtle red hover. Reserve red for this.",
+      "background": "transparent",
+      "hover-background": "{status.danger-subtle}",
+      "text": "{status.danger}"
+    }
+  }
+}

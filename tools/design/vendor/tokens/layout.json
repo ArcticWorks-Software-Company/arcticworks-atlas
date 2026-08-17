@@ -1,0 +1,11 @@
+{
+  "layout": {
+    "$description": "App shell: top navigation → left sidebar → main content → optional right inspector.",
+    "$type": "dimension",
+    "header-height": "48px",
+    "sidebar-width": "248px",
+    "sidebar-collapsed-width": "56px",
+    "inspector-width": "300px",
+    "page-gutter": "24px"
+  }
+}

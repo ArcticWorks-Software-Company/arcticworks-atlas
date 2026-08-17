@@ -1,0 +1,99 @@
+{
+  "palette": {
+    "$description": "Raw color ramps. Components never reference these directly — always go through the semantic layer.",
+    "$type": "color",
+    "neutral": {
+      "0": "#FFFFFF",
+      "50": "#F2F2F4",
+      "100": "#E8E8EB",
+      "200": "#D9D9DD",
+      "300": "#C4C4CA",
+      "400": "#A8A8B0",
+      "500": "#8B8B93",
+      "550": "#7A7A84",
+      "600": "#6F6F78",
+      "700": "#5A5A62",
+      "750": "#4E4E56",
+      "800": "#3A3A42",
+      "850": "#2C2C33",
+      "900": "#1D1D22",
+      "925": "#17171B",
+      "950": "#111114",
+      "975": "#0B0B0D"
+    },
+    "blue": {
+      "300": "#8FBCFF",
+      "400": "#5C9CFF",
+      "500": "#3D8BFF",
+      "550": "#3D82F6",
+      "600": "#2B6FD9",
+      "700": "#245BC2"
+    },
+    "green": { "400": "#3FB950" },
+    "yellow": { "400": "#E3B341" },
+    "red": { "400": "#F04A4A" }
+  },
+  "surface": {
+    "$description": "Elevation levels 0–3 plus role aliases. Elevation = surface tint + border + shadow, never shadow alone.",
+    "$type": "color",
+    "0": "{palette.neutral.975}",
+    "1": "{palette.neutral.950}",
+    "2": "{palette.neutral.925}",
+    "3": "{palette.neutral.900}",
+    "hover": "rgba(255,255,255,0.04)",
+    "card": "{surface.2}",
+    "panel": "{surface.1}",
+    "sidebar": "{surface.1}",
+    "dialog": "{surface.3}"
+  },
+  "interactive": {
+    "$description": "Blue: primary actions, links, selection, focus. Nothing else may use blue.",
+    "$type": "color",
+    "default": "{palette.blue.500}",
+    "hover": "{palette.blue.400}",
+    "primary": "{palette.blue.600}",
+    "active": "{palette.blue.700}",
+    "subtle": "rgba(61,139,255,0.14)",
+    "disabled": "{palette.neutral.750}"
+  },
+  "text": {
+    "$type": "color",
+    "primary": "{palette.neutral.50}",
+    "secondary": "{palette.neutral.400}",
+    "tertiary": "{palette.neutral.550}",
+    "disabled": "{palette.neutral.750}",
+    "on-accent": "{palette.neutral.0}"
+  },
+  "border": {
+    "$type": "color",
+    "subtle": "{palette.neutral.900}",
+    "default": "{palette.neutral.850}",
+    "strong": "{palette.neutral.800}",
+    "accent": "{interactive.default}"
+  },
+  "status": {
+    "$description": "Green/yellow/red only for status, warnings and errors. Subtle variants are backgrounds for badges and inline indicators.",
+    "$type": "color",
+    "success": "{palette.green.400}",
+    "success-subtle": "rgba(63,185,80,0.14)",
+    "warning": "{palette.yellow.400}",
+    "warning-subtle": "rgba(227,179,65,0.14)",
+    "danger": "{palette.red.400}",
+    "danger-subtle": "rgba(240,74,74,0.14)",
+    "neutral": "{palette.neutral.400}"
+  },
+  "chart": {
+    "$description": "Chart series reuse the semantic palette — no decorative hues.",
+    "$type": "color",
+    "1": "{interactive.default}",
+    "2": "{palette.neutral.400}",
+    "3": "{palette.green.400}",
+    "4": "{palette.yellow.400}",
+    "5": "{palette.red.400}",
+    "grid": "rgba(255,255,255,0.06)"
+  },
+  "scrim": {
+    "$type": "color",
+    "$value": "rgba(0,0,0,0.55)"
+  }
+}

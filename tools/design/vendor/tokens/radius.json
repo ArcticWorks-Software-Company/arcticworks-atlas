@@ -1,0 +1,10 @@
+{
+  "radius": {
+    "$description": "6–10px for most components; dialogs may go one step higher. Never exaggerated.",
+    "$type": "dimension",
+    "sm": "6px",
+    "md": "8px",
+    "lg": "10px",
+    "xl": "12px"
+  }
+}

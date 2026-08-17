@@ -1,0 +1,22 @@
+{
+	"name": "@arcticworks/design",
+	"version": "0.1.0",
+	"description": "ArcticWorks 设计令牌：W3C Design Tokens（JSON）与生成的 CSS 自定义属性（--aw-*）。 / ArcticWorks design tokens — W3C Design Tokens (JSON) plus generated CSS custom properties (--aw-*).",
+	"license": "MIT",
+	"type": "module",
+	"keywords": ["design-tokens", "tokens", "css-variables", "design-system"],
+	"files": ["tokens", "themes", "scripts", "README.zh-CN.md"],
+	"exports": {
+		"./themes/dark.css": "./themes/dark/index.css",
+		"./themes/*": "./themes/*",
+		"./tokens/*.json": "./tokens/*.json",
+		"./package.json": "./package.json"
+	},
+	"scripts": {
+		"build": "node scripts/build.mjs"
+	},
+	"sideEffects": ["**/*.css"],
+	"publishConfig": {
+		"access": "public"
+	}
+}

@@ -1,0 +1,33 @@
+{
+  "nav": {
+    "$description": "Every ArcticWorks product shares the same sidebar: sections, items, badges, notification dots.",
+    "width": "{layout.sidebar-width}",
+    "collapsed-width": "{layout.sidebar-collapsed-width}",
+    "item": {
+      "height": "{control.height}",
+      "padding-x": "10px",
+      "radius": "{radius.sm}",
+      "gap": "{space.1}",
+      "font-size": "{typography.size.sm}",
+      "font-weight": "{typography.weight.medium}",
+      "text": "{text.secondary}",
+      "hover-text": "{text.primary}",
+      "hover-background": "{surface.hover}",
+      "active-text": "{text.primary}",
+      "active-background": "{interactive.subtle}",
+      "active-indicator": "{interactive.default}"
+    },
+    "section-title": {
+      "text": "{text.tertiary}",
+      "font-size": "{typography.size.xs}",
+      "font-weight": "{typography.weight.semibold}",
+      "margin-top": "{space.4}"
+    },
+    "badge": {
+      "background": "{surface.2}",
+      "text": "{text.secondary}",
+      "radius": "{radius.sm}"
+    },
+    "notification-dot": "{status.danger}"
+  }
+}

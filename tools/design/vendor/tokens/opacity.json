@@ -1,0 +1,7 @@
+{
+  "opacity": {
+    "$description": "Disabled controls: 50% opacity. Never rely on color alone for the disabled state.",
+    "$type": "number",
+    "disabled": 0.5
+  }
+}

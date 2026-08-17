@@ -1,0 +1,13 @@
+{
+  "zindex": {
+    "$description": "Strict stacking order. Within a layer, DOM order decides.",
+    "$type": "number",
+    "header": 100,
+    "dropdown": 1000,
+    "popover": 1100,
+    "drawer": 1200,
+    "dialog": 1300,
+    "command-palette": 1400,
+    "toast": 1500
+  }
+}

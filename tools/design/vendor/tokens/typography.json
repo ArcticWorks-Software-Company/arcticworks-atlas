@@ -1,0 +1,36 @@
+{
+  "typography": {
+    "$description": "Clean geometric sans for UI, mono for code and dense numeric data. Hierarchy comes from spacing, weight and size — not color.",
+    "$type": "fontFamily",
+    "family": {
+      "sans": "'Inter', -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+      "mono": "'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace"
+    },
+    "size": {
+      "$type": "fontSize",
+      "xs": "12px",
+      "sm": "13px",
+      "base": "14px",
+      "lg": "16px",
+      "xl": "18px",
+      "2xl": "20px",
+      "3xl": "24px"
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "features": {
+      "$description": "Tabular figures keep numeric columns aligned (PLC, DataExplorer, Continuity).",
+      "tabular": "\"tnum\" 1"
+    }
+  },
+  "lineheight": {
+    "$type": "lineHeight",
+    "tight": 1.25,
+    "body": 1.5
+  }
+}

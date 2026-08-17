@@ -1,0 +1,29 @@
+{
+  "motion": {
+    "$description": "Animations exist only to improve comprehension: fast, no bouncing. prefers-reduced-motion is handled in the generated CSS.",
+    "fast": {
+      "$type": "duration",
+      "$description": "Hover, focus, micro-interactions.",
+      "$value": "120ms"
+    },
+    "normal": {
+      "$type": "duration",
+      "$description": "Standard transitions, panels, toasts.",
+      "$value": "180ms"
+    },
+    "slow": {
+      "$type": "duration",
+      "$description": "Dialogs and large overlays. Never exceed 250ms.",
+      "$value": "250ms"
+    },
+    "easing-standard": {
+      "$type": "cubicBezier",
+      "$value": [0.2, 0, 0, 1]
+    },
+    "easing-emphasized": {
+      "$type": "cubicBezier",
+      "$description": "Large surfaces entering and exiting (dialogs, panels).",
+      "$value": [0.05, 0.7, 0.1, 1]
+    }
+  }
+}

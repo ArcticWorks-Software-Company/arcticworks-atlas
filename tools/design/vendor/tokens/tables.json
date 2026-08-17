@@ -1,0 +1,43 @@
+{
+  "table": {
+    "$description": "Enterprise software lives inside tables. Row height follows control height, so density tiers flow through automatically.",
+    "header": {
+      "height": "{control.height}",
+      "background": "{surface.1}",
+      "text": "{text.secondary}",
+      "font-size": "{typography.size.sm}",
+      "font-weight": "{typography.weight.medium}"
+    },
+    "row": {
+      "height": "{control.height}",
+      "padding-x": "{control.padding-x}",
+      "separator": "{border.subtle}",
+      "hover-background": "{surface.hover}",
+      "selected-background": "{interactive.subtle}",
+      "expanded-background": "{surface.1}",
+      "striped-background": "rgba(255,255,255,0.02)",
+      "focus-ring": "{focus.ring}"
+    },
+    "cell": {
+      "text": "{text.primary}",
+      "text-secondary": "{text.secondary}",
+      "padding-x": "{control.padding-x}",
+      "font-size": "{typography.size.sm}",
+      "numeric-features": "{typography.features.tabular}"
+    },
+    "sort": {
+      "active-color": "{interactive.default}",
+      "affordance-color": "{text.tertiary}"
+    },
+    "resize": {
+      "handle-width": "1px",
+      "handle-color": "{border.default}",
+      "handle-hover-color": "{interactive.default}"
+    },
+    "pinned": {
+      "background": "{surface.1}",
+      "border": "{border.default}",
+      "shadow": "{shadow.1}"
+    }
+  }
+}

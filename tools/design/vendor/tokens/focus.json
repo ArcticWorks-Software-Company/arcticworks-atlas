@@ -1,0 +1,7 @@
+{
+  "focus": {
+    "$description": "Visible focus ring for keyboard navigation. Always visible, never style-dependent.",
+    "$type": "color",
+    "ring": "{interactive.default}"
+  }
+}

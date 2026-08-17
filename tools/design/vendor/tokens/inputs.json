@@ -1,0 +1,19 @@
+{
+  "input": {
+    "$description": "Text fields, search bars, password fields, pickers — one shared field style.",
+    "height": "{control.height}",
+    "padding-x": "{control.padding-x}",
+    "radius": "{radius.md}",
+    "font-size": "{typography.size.sm}",
+    "background": "{surface.1}",
+    "text": "{text.primary}",
+    "placeholder": "{text.tertiary}",
+    "border": "{border.default}",
+    "border-hover": "{border.strong}",
+    "border-focus": "{interactive.default}",
+    "focus-ring": "{focus.ring}",
+    "error-border": "{status.danger}",
+    "disabled-text": "{text.disabled}",
+    "transition-duration": "{motion.fast}"
+  }
+}

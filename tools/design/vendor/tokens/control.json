@@ -1,0 +1,8 @@
+{
+  "control": {
+    "$description": "Shared control geometry. Overridden per density tier — components must reference these, never hardcode heights.",
+    "$type": "dimension",
+    "height": "32px",
+    "padding-x": "12px"
+  }
+}

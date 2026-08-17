@@ -1,0 +1,7 @@
+{
+  "borderwidth": {
+    "$description": "Thin subtle borders preferred over heavy shadows. No thick outlines.",
+    "$type": "dimension",
+    "$value": "1px"
+  }
+}

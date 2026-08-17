@@ -1,0 +1,12 @@
+{
+  "card": {
+    "$description": "Cards: default, hover, selected. Elevation 1 — border + surface tint + shadow.",
+    "background": "{surface.2}",
+    "border": "{border.subtle}",
+    "border-hover": "{border.default}",
+    "border-selected": "{interactive.default}",
+    "radius": "{radius.lg}",
+    "padding": "{space.4}",
+    "shadow": "{shadow.1}"
+  }
+}

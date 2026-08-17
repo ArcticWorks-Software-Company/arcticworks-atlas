@@ -1,0 +1,24 @@
+{
+  "icon": {
+    "$description": "Icon specification: 24px viewBox grid, outline only, consistent stroke, rounded joins and caps. This keeps every icon visually identical.",
+    "grid": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "stroke": {
+      "$type": "dimension",
+      "$value": "1.75px"
+    },
+    "corner-radius": {
+      "$type": "dimension",
+      "$description": "Rounded joins and caps on the 24px grid.",
+      "$value": "2px"
+    },
+    "size": {
+      "$type": "dimension",
+      "toolbar": "16px",
+      "default": "18px",
+      "navigation": "20px"
+    }
+  }
+}

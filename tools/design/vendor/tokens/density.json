@@ -1,0 +1,19 @@
+{
+  "default": "compact",
+  "tiers": {
+    "dense": {
+      "$description": "PLC engineering, DataExplorer, SecureNet — maximum information density.",
+      "control.height": "28px",
+      "control.padding-x": "10px",
+      "card.padding": "{space.3}",
+      "layout.page-gutter": "{space.4}"
+    },
+    "comfortable": {
+      "$description": "Continuity, dashboards, review workflows.",
+      "control.height": "36px",
+      "control.padding-x": "14px",
+      "card.padding": "{space.5}",
+      "layout.page-gutter": "{space.8}"
+    }
+  }
+}

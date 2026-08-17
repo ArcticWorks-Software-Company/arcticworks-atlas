@@ -1,0 +1,34 @@
+{
+  "shadow": {
+    "$description": "Very soft shadows, only to indicate elevation. Always pair with a surface tint and a border. Products must never invent their own shadows.",
+    "$type": "shadow",
+    "0": {
+      "$description": "No elevation.",
+      "$value": "none"
+    },
+    "1": {
+      "$description": "Cards resting on the application background.",
+      "$value": {
+        "offsetX": "0",
+        "offsetY": "1px",
+        "blur": "2px",
+        "spread": "0",
+        "color": "rgba(0,0,0,0.35)"
+      }
+    },
+    "2": {
+      "$description": "Popovers, context menus, dropdowns. Use with border-strong.",
+      "$value": [
+        { "offsetX": "0", "offsetY": "1px", "blur": "2px", "spread": "0", "color": "rgba(0,0,0,0.35)" },
+        { "offsetX": "0", "offsetY": "4px", "blur": "12px", "spread": "0", "color": "rgba(0,0,0,0.45)" }
+      ]
+    },
+    "3": {
+      "$description": "Dialogs and the command palette. Use with surface-3 and border-strong.",
+      "$value": [
+        { "offsetX": "0", "offsetY": "2px", "blur": "8px", "spread": "0", "color": "rgba(0,0,0,0.4)" },
+        { "offsetX": "0", "offsetY": "12px", "blur": "40px", "spread": "0", "color": "rgba(0,0,0,0.55)" }
+      ]
+    }
+  }
+}
