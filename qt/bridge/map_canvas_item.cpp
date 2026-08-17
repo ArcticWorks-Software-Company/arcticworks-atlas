@@ -157,15 +157,6 @@ void main()
 #endif
 }  // namespace
 
-struct MapCanvasItem::EngineState
-{
-  // Serializes frame acquisition on the scene graph render thread against engine
-  // creation/teardown on the GUI thread. Kept in a shared_ptr so it (and the mutex)
-  // outlives the item: the renderer holds its own copy and may outlive the item.
-  std::mutex m_mutex;
-  drape_ptr<common::QtOGLContextFactory> m_contextFactory;
-};
-
 class MapCanvasRenderer : public QQuickFramebufferObject::Renderer, protected QOpenGLFunctions
 {
 public:
@@ -237,8 +228,8 @@ void MapCanvasRenderer::render()
 
 void MapCanvasRenderer::Build()
 {
-  if (!initializeOpenGLFunctions())
-    return;
+  // Qt 6.4: initializeOpenGLFunctions() returns void.
+  initializeOpenGLFunctions();
 
   m_program = std::make_unique<QOpenGLShaderProgram>();
   m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, kVertexShaderSrc.data());
@@ -266,9 +257,10 @@ void MapCanvasRenderer::Build()
   m_vao->release();
 }
 
-MapCanvasItem::MapCanvasItem(Framework & framework, QQuickItem * parent)
+MapCanvasItem::MapCanvasItem(Framework & framework, QOpenGLContext * sharedContext, QQuickItem * parent)
   : QQuickFramebufferObject(parent)
   , m_framework(framework)
+  , m_sharedContext(sharedContext)
   , m_engineState(std::make_shared<EngineState>())
 {
   setAcceptedMouseButtons(Qt::AllButtons);
@@ -605,8 +597,8 @@ void MapCanvasItem::InitializeEngine()
     return;
 
   QQuickWindow * w = window();
-  if (w == nullptr || w->openglContext() == nullptr)
-    return;  // Will be retried from createRenderer or QQuickWindow::sceneGraphInitialized.
+  if (w == nullptr || m_sharedContext == nullptr)
+    return;  // Will be retried from QQuickWindow::sceneGraphInitialized.
 
   m_engineInitialized = true;
 
@@ -622,7 +614,7 @@ void MapCanvasItem::InitializeEngine()
 
   {
     std::lock_guard<std::mutex> lock(m_engineState->m_mutex);
-    m_engineState->m_contextFactory.reset(new common::QtOGLContextFactory(w->openglContext()));
+    m_engineState->m_contextFactory.reset(new common::QtOGLContextFactory(m_sharedContext));
   }
 
   emit beforeEngineCreation();

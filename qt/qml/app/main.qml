@@ -15,7 +15,8 @@ ApplicationWindow {
     height: 800
     minimumWidth: 800
     minimumHeight: 600
-    visible: true
+    // Shown from C++ after the shared GL graphics device is attached.
+    visible: false
     title: "CoMaps"
     color: AWTheme.data["surface.0"]
 

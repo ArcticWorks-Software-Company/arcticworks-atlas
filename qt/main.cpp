@@ -23,8 +23,11 @@
 #include "build_style/build_style.h"
 
 #include <QtGlobal>
+#include <QtGui/QOpenGLContext>
+#include <QtGui/QSurfaceFormat>
 #include <QtQml/QQmlApplicationEngine>
 #include <QtQml/QQmlContext>
+#include <QtQuick/QQuickGraphicsDevice>
 #include <QtQuick/QQuickWindow>
 #include <QtQuick/QSGRendererInterface>
 #include <QtWidgets/QApplication>
@@ -260,20 +263,25 @@ int main(int argc, char * argv[])
       // QFBO requires an OpenGL scene graph backend.
       QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
 
+      // The scene graph device and the drape engine share this root context.
+      auto * sharedContext = new QOpenGLContext;
+      sharedContext->setFormat(QSurfaceFormat::defaultFormat());
+      sharedContext->create();
+
       QQmlApplicationEngine engine;
       engine.addImportPath(QStringLiteral("qrc:/qt/qml"));
-      engine.rootContext()->setContextProperty("mapCanvas", new qt::MapCanvasItem(framework));
+      engine.rootContext()->setContextProperty("mapCanvas", new qt::MapCanvasItem(framework, sharedContext));
       bool devMode = false;
       (void)settings::Get(settings::kDeveloperMode, devMode);
       engine.rootContext()->setContextProperty("developerMode", devMode);
 
       engine.load(QUrl(QStringLiteral("qrc:/qt/qml/app/main.qml")));
-      // Keep the GL context and scene graph alive so the drape engine can share
-      // the window's context (Qt 6.4 has no global setter; instance call only).
       if (auto * qmlWindow = qobject_cast<QQuickWindow *>(engine.rootObjects().value(0)))
       {
+        qmlWindow->setGraphicsDevice(QQuickGraphicsDevice::fromOpenGLContext(sharedContext));
         qmlWindow->setPersistentGraphics(true);
         qmlWindow->setPersistentSceneGraph(true);
+        qmlWindow->show();
       }
       returnCode = QApplication::exec();
     }

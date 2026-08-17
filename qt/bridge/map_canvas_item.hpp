@@ -32,6 +32,7 @@ class QEvent;
 class QKeyEvent;
 class QMouseEvent;
 class QObject;
+class QOpenGLContext;
 class QTouchEvent;
 class QTimer;
 class QWheelEvent;
@@ -53,7 +54,7 @@ class MapCanvasItem : public QQuickFramebufferObject
   Q_PROPERTY(bool screenshotMode READ GetScreenshotMode WRITE SetScreenshotMode NOTIFY screenshotModeChanged)
 
 public:
-  explicit MapCanvasItem(Framework & framework, QQuickItem * parent = nullptr);
+  explicit MapCanvasItem(Framework & framework, QOpenGLContext * sharedContext, QQuickItem * parent = nullptr);
   ~MapCanvasItem() override;
 
   // QQuickFramebufferObject overrides:
@@ -170,6 +171,9 @@ private:
   m2::PointD GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt, bool pointIsMercator) const;
 
   Framework & m_framework;
+  /// Root OpenGL context shared by both the Qt scene graph and the drape engine
+  /// (the scene graph device is created from it, see main.cpp).
+  QOpenGLContext * m_sharedContext;
   bool m_screenshotMode = false;
   bool m_engineInitialized = false;
   float m_ratio = 1.0f;
