@@ -1,0 +1,77 @@
+name: Nightly iOS
+on:
+  schedule:
+    # Every night at 03:00 UTC.
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Manual trigger
+
+env:
+  SKIP_MAP_DOWNLOAD: 1
+  LANG: en_US.UTF-8
+  LANGUAGE: en_US.UTF-8
+  LC_ALL: en_US.UTF-8
+
+jobs:
+  ios-nightly:
+    name: Build iOS
+    runs-on: macos-26
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.1.app/Contents/Developer
+    # Cancels previous runs if a new one starts.
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Install dependencies
+        shell: bash
+        run: |
+          brew install qt optipng
+          pip3 install "protobuf<3.21" --break-system-packages
+          xcodebuild -downloadComponent metalToolchain
+          xcodebuild -downloadPlatform iOS
+
+      - name: Checkout sources
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
+
+      - name: Configure repository
+        shell: bash
+        run: ./configure.sh
+
+      - name: Configure Xcode cache
+        uses: irgaly/xcode-cache@v1
+        with:
+          key: xcode-cache-deriveddata-${{ github.workflow }}-${{ github.sha }}
+          restore-keys: xcode-cache-deriveddata-${{ github.workflow }}
+
+      - name: Build (Release)
+        shell: bash
+        run: |
+          xcodebuild build \
+            -workspace xcode/CoMaps.xcworkspace \
+            -scheme CoMaps \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath ./build \
+            -quiet \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Package CoMaps.app
+        shell: bash
+        run: |
+          ditto -c -k --keepParent build/Build/Products/Release-iphoneos/CoMaps.app CoMaps-iOS.zip
+
+      - name: Upload CoMaps.app
+        uses: actions/upload-artifact@v6
+        with:
+          name: comaps-ios-nightly-${{ github.run_number }}
+          path: CoMaps-iOS.zip
+          if-no-files-found: error
+          retention-days: 14

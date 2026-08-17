@@ -1,0 +1,87 @@
+name: Nightly Android
+on:
+  schedule:
+    # Every night at 02:30 UTC.
+    - cron: '30 2 * * *'
+  workflow_dispatch: # Manual trigger
+
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-21-jdk-amd64  # Java 21 is required for Android Gradle 8 plugin
+  SKIP_MAP_DOWNLOAD: 1
+
+jobs:
+  android-nightly:
+    name: Android ${{ matrix.flavor }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - flavor: WebBeta
+            arch: arm64
+          - flavor: FdroidBeta
+            arch: arm32
+          - flavor: HuaweiBeta
+            arch: arm64
+    # Cancels previous runs if a new one starts.
+    concurrency:
+      group: ${{ github.workflow }}-${{ matrix.flavor }}-${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build \
+          qt6-base-dev \
+          qt6-declarative-dev \
+          qt6-positioning-dev \
+          libqt6svg6-dev \
+          optipng \
+          libfreetype-dev \
+          libharfbuzz-dev \
+          libxrandr-dev \
+          libxinerama-dev \
+          libxcursor-dev \
+          libxi-dev \
+          python3-pip \
+          zlib1g-dev
+          pip install "protobuf<3.21" --break-system-packages
+
+      - name: Checkout sources
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Configure repository
+        shell: bash
+        run: ./configure.sh
+
+      - name: Configure ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: ${{ github.workflow }}-${{ matrix.flavor }}
+
+      - name: Compile ${{ matrix.flavor }}
+        shell: bash
+        working-directory: android
+        env:
+          CMAKE_C_COMPILER_LAUNCHER: ccache
+          CMAKE_CXX_COMPILER_LAUNCHER: ccache
+        run: |
+          cmake --version
+          ninja --version
+          ./gradlew -P${{ matrix.arch }} assemble${{ matrix.flavor }}
+
+      - name: Upload ${{ matrix.flavor }} APK
+        uses: actions/upload-artifact@v6
+        with:
+          name: comaps-android-${{ matrix.flavor }}-nightly-${{ github.run_number }}
+          path: android/app/build/outputs/apk/**/CoMaps-*.apk
+          if-no-files-found: error
+          retention-days: 14

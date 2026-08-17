@@ -1,0 +1,130 @@
+name: Nightly Desktop
+on:
+  schedule:
+    # Every night at 02:00 UTC.
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Manual trigger
+
+env:
+  SKIP_MAP_DOWNLOAD: 1
+  LANG: en_US.UTF-8
+  LC_ALL: en_US.UTF-8
+
+jobs:
+  desktop-linux:
+    name: Linux desktop (${{ matrix.os }})
+    runs-on: ubuntu-latest
+    # Cancels previous runs if a new one starts.
+    concurrency:
+      group: ${{ github.workflow }}-linux-${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y \
+            build-essential \
+            clang \
+            cmake \
+            ninja-build \
+            python3-venv \
+            qt6-base-dev \
+            qt6-positioning-dev \
+            libqt6positioning6-plugins \
+            libqt6svg6-dev \
+            libfreetype-dev \
+            libharfbuzz-dev \
+            libicu-dev \
+            libsqlite3-dev \
+            libgl1-mesa-dev \
+            libglvnd-dev \
+            libxrandr-dev \
+            libxinerama-dev \
+            libxcursor-dev \
+            libxi-dev \
+            libfuse2 \
+            zlib1g-dev \
+            optipng \
+            jq \
+            wget
+
+      - name: Checkout sources
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Configure ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: ${{ github.workflow }}-linux
+
+      - name: Build standalone desktop app (AppImage)
+        shell: bash
+        env:
+          CC: clang
+          CXX: clang++
+          CMAKE_C_COMPILER_LAUNCHER: ccache
+          CMAKE_CXX_COMPILER_LAUNCHER: ccache
+        run: ./tools/unix/build_omim.sh -r -a -i desktop
+
+      - name: Upload AppImage
+        uses: actions/upload-artifact@v6
+        with:
+          name: comaps-desktop-linux-nightly-${{ github.run_number }}
+          path: ../omim-build-release/*.appimage
+          if-no-files-found: error
+          retention-days: 14
+
+  desktop-macos:
+    name: macOS desktop
+    runs-on: macos-26
+    # Cancels previous runs if a new one starts.
+    concurrency:
+      group: ${{ github.workflow }}-macos-${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          brew install qt jq optipng wget
+
+      - name: Checkout sources
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
+
+      - name: Configure ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: ${{ github.workflow }}-macos
+
+      - name: Build standalone desktop app (CoMaps.app)
+        shell: bash
+        env:
+          CMAKE_C_COMPILER_LAUNCHER: ccache
+          CMAKE_CXX_COMPILER_LAUNCHER: ccache
+        run: ./tools/unix/build_omim.sh -r -a desktop
+
+      - name: Package CoMaps.app
+        shell: bash
+        run: |
+          ditto -c -k --keepParent ../omim-build-release/CoMaps.app CoMaps-macOS.zip
+
+      - name: Upload CoMaps.app
+        uses: actions/upload-artifact@v6
+        with:
+          name: comaps-desktop-macos-nightly-${{ github.run_number }}
+          path: CoMaps-macOS.zip
+          if-no-files-found: error
+          retention-days: 14
