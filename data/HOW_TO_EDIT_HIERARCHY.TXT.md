@@ -56,3 +56,10 @@ For map files, the name of the region needs to match with the name of [poly file
 You can find more examples here:
 - https://codeberg.org/comaps/comaps/pulls/3191
 - https://codeberg.org/comaps/comaps/pulls/3456
+
+## CI builds
+
+Nightly desktop (Linux AppImage, macOS), Android Beta APKs and iOS builds are
+compiled and published as rolling prereleases by GitHub Actions; see
+`.github/workflows/nightly-*.yaml`. Every push to `main` triggers the check
+and nightly workflows as well.

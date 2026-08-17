@@ -3,6 +3,9 @@ on:
   schedule:
     # Every night at 02:30 UTC.
     - cron: '30 2 * * *'
+  push:
+    branches:
+      - main
   workflow_dispatch: # Manual trigger
 
 env:
