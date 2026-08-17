@@ -11,6 +11,9 @@ env:
   LANGUAGE: en_US.UTF-8
   LC_ALL: en_US.UTF-8
 
+permissions:
+  contents: write
+
 jobs:
   ios-nightly:
     name: Build iOS
@@ -75,3 +78,24 @@ jobs:
           path: CoMaps-iOS.zip
           if-no-files-found: error
           retention-days: 14
+
+      - name: Delete previous nightly release
+        shell: bash
+        run: gh release delete nightly-ios --yes --cleanup-tag || true
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Publish nightly release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: nightly-ios
+          name: Nightly iOS Build
+          prerelease: true
+          generate_release_notes: false
+          files: CoMaps-iOS.zip
+          body: |
+            Automated nightly iOS build (unsigned — for simulator installs and inspection).
+
+            - Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            - Commit: [`${{ github.sha }}`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
+

@@ -10,6 +10,9 @@ env:
   LANG: en_US.UTF-8
   LC_ALL: en_US.UTF-8
 
+permissions:
+  contents: write
+
 jobs:
   desktop-linux:
     name: Linux desktop (${{ matrix.os }})
@@ -128,3 +131,38 @@ jobs:
           path: CoMaps-macOS.zip
           if-no-files-found: error
           retention-days: 14
+
+  nightly-release:
+    name: Publish nightly release
+    runs-on: ubuntu-latest
+    needs: [desktop-linux, desktop-macos]
+    concurrency:
+      group: ${{ github.workflow }}-release-${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v6
+        with:
+          path: assets
+
+      - name: Delete previous nightly release
+        shell: bash
+        run: gh release delete nightly-desktop --yes --cleanup-tag || true
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Publish nightly release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: nightly-desktop
+          name: Nightly Desktop Build
+          prerelease: true
+          generate_release_notes: false
+          files: assets/**/*
+          body: |
+            Automated nightly desktop build.
+
+            - Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            - Commit: [`${{ github.sha }}`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
+
