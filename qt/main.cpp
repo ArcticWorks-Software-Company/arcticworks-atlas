@@ -1,3 +1,4 @@
+#include "qt/bridge/map_canvas_item.hpp"
 #include "qt/html_processor.hpp"
 #include "qt/info_dialog.hpp"
 #include "qt/mainwindow.hpp"
@@ -22,6 +23,9 @@
 #include "build_style/build_style.h"
 
 #include <QtGlobal>
+#include <QtQml/QQmlApplicationEngine>
+#include <QtQuick/QQuickWindow>
+#include <QtQuick/QSGRendererInterface>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
@@ -242,15 +246,43 @@ int main(int argc, char * argv[])
 #endif  // BUILD_DESIGNER
 
     Framework framework(frameworkParams);
-    arcticworks_style::Apply(app, MapStyleIsDark(framework.GetMapStyle()));
-    qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry()
+
+    // The QML UI is the default. Widgets stay available as a fallback
+    // (QCOMAPS_UI=widgets) and for screenshot mode.
+    bool useQmlUi = screenshotParams == nullptr && qEnvironmentVariable("QCOMAPS_UI") != "widgets";
 #ifdef BUILD_DESIGNER
-                                                                 ,
-                     mapcssFilePath
+    useQmlUi = false;
+#endif
+
+    if (useQmlUi)
+    {
+      // QFBO requires an OpenGL scene graph backend.
+      QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+      QQuickWindow::setPersistentOpenGLContext(true);
+      QQuickWindow::setPersistentSceneGraph(true);
+
+      QQmlApplicationEngine engine;
+      engine.addImportPath(QStringLiteral("qrc:/qt/qml"));
+      engine.rootContext()->setContextProperty("mapCanvas", new qt::MapCanvasItem(framework));
+      bool devMode = false;
+      settings::Get(settings::kDeveloperMode, devMode);
+      engine.rootContext()->setContextProperty("developerMode", devMode);
+
+      engine.load(QUrl(QStringLiteral("qrc:/qt/qml/app/main.qml")));
+      returnCode = QApplication::exec();
+    }
+    else
+    {
+      arcticworks_style::Apply(app, MapStyleIsDark(framework.GetMapStyle()));
+      qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry()
+#ifdef BUILD_DESIGNER
+                                                                   ,
+                       mapcssFilePath
 #endif  // BUILD_DESIGNER
-    );
-    w.show();
-    returnCode = QApplication::exec();
+      );
+      w.show();
+      returnCode = QApplication::exec();
+    }
 
 #ifdef BUILD_DESIGNER
     if (build_style::NeedRecalculate && !mapcssFilePath.isEmpty())

@@ -2,11 +2,23 @@ project(desktop)
 
 QT6_ADD_RESOURCES(RES_SOURCES res/resources.qrc)
 
+file(GLOB_RECURSE QML_RESOURCE_FILES
+  ${CMAKE_CURRENT_SOURCE_DIR}/qml/*.qml
+  ${CMAKE_CURRENT_SOURCE_DIR}/qml/*.js
+  ${CMAKE_CURRENT_SOURCE_DIR}/qml/qmldir
+)
+qt_add_resources(desktop "qml_res" PREFIX "/qt/qml"
+  BASE ${CMAKE_CURRENT_SOURCE_DIR}/qml
+  FILES ${QML_RESOURCE_FILES}
+)
+
 set(SRC
   about.cpp
   about.hpp
   bookmark_dialog.cpp
   bookmark_dialog.hpp
+  bridge/map_canvas_item.cpp
+  bridge/map_canvas_item.hpp
   build_style/build_common.cpp
   build_style/build_common.h
   build_style/build_drules.cpp
@@ -93,6 +105,9 @@ target_link_libraries(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
     gflags::gflags
+    Qt6::Quick
+    Qt6::Qml
+    Qt6::QuickControls2
 )
 
 if (BUILD_DESIGNER)
