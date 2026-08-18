@@ -4,6 +4,8 @@
   <p>Hike, bike, drive offline. Map navigation with privacy.</p>
 </div>
 
+[English](README.md) · [简体中文](README.zh-CN.md)
+
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](LICENSE)
 [![Android](https://github.com/ArcticWorks-Software-Company/arcticworks-atlas/actions/workflows/android-check.yaml/badge.svg)](https://github.com/ArcticWorks-Software-Company/arcticworks-atlas/actions/workflows/android-check.yaml)
 [![iOS](https://github.com/ArcticWorks-Software-Company/arcticworks-atlas/actions/workflows/ios-check.yaml/badge.svg)](https://github.com/ArcticWorks-Software-Company/arcticworks-atlas/actions/workflows/ios-check.yaml)
